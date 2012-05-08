@@ -1,4 +1,0 @@
-JDT
-===
-
-Java Delaunay Triangulation
