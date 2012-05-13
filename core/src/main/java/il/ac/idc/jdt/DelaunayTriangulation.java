@@ -690,7 +690,8 @@ public class DelaunayTriangulation {
 				third = neighbor.getC();
 
 			// delta (slope) of half plane edge
-			double halfplaneDelta = (halfplane.getA().getY() - halfplane.getB().getY()) / (halfplane.getA().getX() - halfplane.getB().getX());
+			double halfplaneDelta = (halfplane.getA().getY() - halfplane.getB().getY())
+					/ (halfplane.getA().getX() - halfplane.getB().getX());
 
 			// delta of line perpendicular to current half plane edge
 			double perpDelta = (1.0 / halfplaneDelta) * (-1.0);
@@ -1140,8 +1141,9 @@ public class DelaunayTriangulation {
 
 		// Validating find result.
 		if (!triangle.isCorner(point)) {
-			System.err.println("findConnectedVertices: Could not find connected vertices since the first found triangle doesn't"
-					+ " share the given point.");
+			System.err
+					.println("findConnectedVertices: Could not find connected vertices since the first found triangle doesn't"
+							+ " share the given point.");
 			return null;
 		}
 
@@ -1253,7 +1255,8 @@ public class DelaunayTriangulation {
 	// TODO: Move this to triangle.
 	// checks if the triangle is not re-entrant
 	private double calcDet(Point A, Point B, Point P) {
-		return (A.getX() * (B.getY() - P.getY())) - (A.getY() * (B.getX() - P.getX())) + (B.getX() * P.getY() - B.getY() * P.getX());
+		return (A.getX() * (B.getY() - P.getY())) - (A.getY() * (B.getX() - P.getX()))
+				+ (B.getX() * P.getY() - B.getY() * P.getX());
 	}
 
 	/**
@@ -1333,6 +1336,8 @@ public class DelaunayTriangulation {
 	 * @return The bounding rectange between the minimum and maximum coordinates
 	 */
 	public BoundingBox getBoundingBox() {
+		if (bbMin == null || bbMax == null)
+			return null;
 		return new BoundingBox(bbMin, bbMax);
 	}
 
