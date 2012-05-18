@@ -14,7 +14,7 @@ import net.ericaro.surfaceplotter.surface.SurfaceModel.PlotColor;
 import net.ericaro.surfaceplotter.surface.SurfaceModel.PlotType;
 
 @SuppressWarnings("serial")
-public class View3d extends Panel {
+public class View3d extends Panel implements View {
 
 	private JSurface surface = new JSurface();
 	private DelaunayTriangulation dt;

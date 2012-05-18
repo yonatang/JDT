@@ -3,14 +3,15 @@ package il.ac.idc.jdt.gui2;
 import il.ac.idc.jdt.DelaunayTriangulation;
 import il.ac.idc.jdt.Point;
 import il.ac.idc.jdt.gui2.event.MenuEvent;
+import il.ac.idc.jdt.gui2.view.View;
 import il.ac.idc.jdt.gui2.view.View2d;
 import il.ac.idc.jdt.gui2.view.View3d;
 import il.ac.idc.jdt.gui2.view.ViewTopology;
 import il.ac.idc.jdt.gui2.view.ViewVoroni;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Frame;
-import java.awt.Panel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -28,7 +29,6 @@ public class MainFrame extends Frame {
 	private View3d view3d = new View3d();
 	private ViewTopology viewTopology = new ViewTopology();
 	private ViewVoroni viewVoroni = new ViewVoroni();
-	private Panel displayPanel = new Panel();
 
 	private void clearView() {
 		remove(view2d);
@@ -48,6 +48,16 @@ public class MainFrame extends Frame {
 				System.exit(0);
 			}
 		});
+		setView(view2d);
+
+	}
+
+	private void setView(View view) {
+		view.setDT(dt);
+		clearView();
+		add((Component) view, BorderLayout.CENTER);
+		validate();
+		repaint();
 	}
 
 	@Subscribe
@@ -59,34 +69,23 @@ public class MainFrame extends Frame {
 		case FILE_OPEN:
 			List<Point> points = fileHandler.openFile(this);
 			dt = new DelaunayTriangulation(points);
-			view2d.setDT(dt);
-			clearView();
-			add(view2d, BorderLayout.CENTER);
-			validate();
+			setView(view2d);
 			break;
 		case VIEW_2D:
-			view2d.setDT(dt);
-			clearView();
-			add(view2d, BorderLayout.CENTER);
-			validate();
+			setView(view2d);
 			break;
 		case VIEW_3D:
-			view3d.setDT(dt);
-			clearView();
-			add(view3d, BorderLayout.CENTER);
-			validate();
+			setView(view3d);
 			break;
 		case VIEW_TOPO:
-			viewTopology.setDT(dt);
-			clearView();
-			add(viewTopology, BorderLayout.CENTER);
-			validate();
+			setView(viewTopology);
 			break;
 		case VIEW_VORONOI:
-			viewVoroni.setDT(dt);
-			clearView();
-			add(viewVoroni, BorderLayout.CENTER);
-			validate();
+			setView(viewVoroni);
+			break;
+		case FILE_CLEAR:
+			dt = new DelaunayTriangulation();
+			setView(view2d);
 			break;
 
 		default:

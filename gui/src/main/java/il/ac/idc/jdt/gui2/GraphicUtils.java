@@ -32,6 +32,25 @@ public class GraphicUtils {
 		g.drawLine(gp1.x, gp1.y, gp2.x, gp2.y);
 	}
 
+	public Point descale(int x, int y) {
+		if (dt == null)
+			throw new IllegalStateException("Cannot scale without DT");
+		double minX;
+		double maxX;
+		double minY;
+		double maxY;
+		if (dt.size() < 3) {
+			return new Point(x, y);
+		}
+		minX = dt.getBoundingBox().minX();
+		minY = dt.getBoundingBox().minY();
+		maxX = dt.getBoundingBox().maxX();
+		maxY = dt.getBoundingBox().maxY();
+
+		return new Point(minX + ((double) x / (double) c.getWidth() * (maxX - minX)), minY
+				+ ((double) y / (double) c.getHeight() * (maxY - minY)));
+	}
+
 	private java.awt.Point scale(Point p) {
 		if (dt == null)
 			throw new IllegalStateException("Cannot scale without DT");
