@@ -88,7 +88,7 @@ public class IOParsers {
 			double d1 = new Double(st.nextToken()).doubleValue() * dx + minX;
 			double d2 = new Double(st.nextToken()).doubleValue() * dy + minY;
 			double d3 = new Double(st.nextToken()).doubleValue() * dz + minZ;
-			points.add(new Point((int) d1, (int) d2, d3));
+			points.add(new Point(d1, d2, d3));
 			s = is.readLine();
 		}
 		return points;
@@ -103,7 +103,7 @@ public class IOParsers {
 			double d1 = new Double(st.nextToken()).doubleValue();
 			double d2 = new Double(st.nextToken()).doubleValue();
 			double d3 = new Double(st.nextToken()).doubleValue();
-			points.add(new Point((int) d1, (int) d2, d3));
+			points.add(new Point(d1, d2, d3));
 		}
 		return points;
 	}

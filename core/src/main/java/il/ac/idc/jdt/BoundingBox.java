@@ -5,8 +5,9 @@ import java.io.Serializable;
 /**
  * Created by IntelliJ IDEA. User: Aviad Segev Date: 22/11/2009 Time: 20:29:56
  * BoundingBox represents a horizontal bounding rectangle defined by its lower
- * left and upper right point. This is usually used as a rough approximation of@SuppressWarnings("serial")
-
+ * left and upper right point. This is usually used as a rough approximation
+ * of@SuppressWarnings("serial")
+ * 
  * the bounded geometry
  */
 @SuppressWarnings("serial")
@@ -86,7 +87,8 @@ public class BoundingBox implements Serializable {
 	 *            upper left point of the box
 	 */
 	public BoundingBox(Point lowerLeft, Point upperRight) {
-		init(lowerLeft.getX(), upperRight.getX(), lowerLeft.getY(), upperRight.getY(), lowerLeft.getZ(), upperRight.getZ());
+		init(lowerLeft.getX(), upperRight.getX(), lowerLeft.getY(), upperRight.getY(), lowerLeft.getZ(),
+				upperRight.getZ());
 	}
 
 	/**
@@ -155,7 +157,8 @@ public class BoundingBox implements Serializable {
 	 * @return true if this BoundingBox contains the other BoundingBox
 	 */
 	public boolean contains(BoundingBox other) {
-		return !(isNull() || other.isNull()) && other.minX >= minX && other.maxY <= maxX && other.minY >= minY && other.maxY <= maxY;
+		return !(isNull() || other.isNull()) && other.minX >= minX && other.maxY <= maxX && other.minY >= minY
+				&& other.maxY <= maxY;
 	}
 
 	/**
@@ -172,8 +175,8 @@ public class BoundingBox implements Serializable {
 		if (isNull()) {
 			return new BoundingBox(other);
 		} else {
-			return new BoundingBox(Math.min(minX, other.minX), Math.max(maxX, other.maxX), Math.min(minY, other.minY), Math.max(maxY,
-					other.maxY), Math.min(minZ, other.minZ), Math.max(maxZ, other.maxZ));
+			return new BoundingBox(Math.min(minX, other.minX), Math.max(maxX, other.maxX), Math.min(minY, other.minY),
+					Math.max(maxY, other.maxY), Math.min(minZ, other.minZ), Math.max(maxZ, other.maxZ));
 		}
 	}
 
@@ -217,6 +220,12 @@ public class BoundingBox implements Serializable {
 	 */
 	public double getHeight() {
 		return maxY - minY;
+	}
+
+	@Override
+	public String toString() {
+		return "BoundingBox [minX=" + minX + ", maxX=" + maxX + ", minY=" + minY + ", maxY=" + maxY + ", minZ=" + minZ
+				+ ", maxZ=" + maxZ + "]";
 	}
 
 	/**
