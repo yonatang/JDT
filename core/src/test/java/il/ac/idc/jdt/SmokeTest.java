@@ -18,7 +18,7 @@ public class SmokeTest {
 	public void shouldRunOnExampleData() throws Exception {
 		for (String data : Arrays.asList("t1_1000.tsin", "t1_5000.tsin", "il_1000.smf", "t1_5000.smf",
 				"terra_13000.smf", "terra_13000.tsin")) {
-			List<Point> points=IOParsers.readPoints(this.getClass().getResourceAsStream("/inputs/" + data));
+			List<Point> points = IOParsers.readPoints(this.getClass().getResourceAsStream("/inputs/" + data));
 			DelaunayTriangulation dt = new DelaunayTriangulation(points);
 			File smfTemp = File.createTempFile("jdt-", ".smf");
 			File tsinTemp = File.createTempFile("jdt-", ".tsin");
