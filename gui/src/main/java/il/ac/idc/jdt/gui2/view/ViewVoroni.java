@@ -71,5 +71,4 @@ public class ViewVoroni extends ViewBase {
 			g.setColor(temp);
 		}
 	}
-
 }

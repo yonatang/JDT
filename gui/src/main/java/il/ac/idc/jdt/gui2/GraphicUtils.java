@@ -113,14 +113,23 @@ public class GraphicUtils {
 	}
 
 	public void drawPolygon(Graphics g, Point[] polygon) {
+		int skip = 0;
+		int j = 0;
 		int[] x = new int[polygon.length];
 		int[] y = new int[polygon.length];
 		for (int i = 0; i < polygon.length; i++) {
+			if (Double.isInfinite(polygon[i].getX()) || Double.isInfinite(polygon[i].getY())) {
+				skip++;
+				continue;
+			}
+
 			java.awt.Point p = scale(polygon[i]);
 			// polygon[i] = this.world2screen(polygon[i]);
-			x[i] = p.x;
-			y[i] = p.y;
+
+			x[j] = p.x;
+			y[j] = p.y;
+			j++;
 		}
-		g.drawPolygon(x, y, polygon.length);
+		g.drawPolygon(x, y, polygon.length - skip);
 	}
 }

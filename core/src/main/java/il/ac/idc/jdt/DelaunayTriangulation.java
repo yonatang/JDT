@@ -689,12 +689,12 @@ public class DelaunayTriangulation {
 			if (!neighbor.getC().equals(halfplane.getA()) && !neighbor.getC().equals(halfplane.getB()))
 				third = neighbor.getC();
 
-			// delta (slope) of half plane edge
+			// delta (slope) of half plane edge. Make it smaller than infinity
 			double halfplaneDelta = (halfplane.getA().getY() - halfplane.getB().getY())
-					/ (halfplane.getA().getX() - halfplane.getB().getX());
+					/ (halfplane.getA().getX() - halfplane.getB().getX() + 0.00001);
 
 			// delta of line perpendicular to current half plane edge
-			double perpDelta = (1.0 / halfplaneDelta) * (-1.0);
+			double perpDelta = (-1.0 / halfplaneDelta);
 
 			// determine orientation: find if the third point of the triangle
 			// lies above or below the half plane
