@@ -1,22 +1,19 @@
 package il.ac.idc.jdt.gui2.view;
 
 import il.ac.idc.jdt.DelaunayTriangulation;
-import il.ac.idc.jdt.Point;
-import il.ac.idc.jdt.Triangle;
+import il.ac.idc.jdt.gui2.view.d3.DTJSurface;
+import il.ac.idc.jdt.gui2.view.d3.DTSurfaceModel;
 
 import java.awt.BorderLayout;
 import java.awt.Panel;
 
-import net.ericaro.surfaceplotter.DefaultSurfaceModel;
-import net.ericaro.surfaceplotter.Mapper;
-import net.ericaro.surfaceplotter.surface.JSurface;
 import net.ericaro.surfaceplotter.surface.SurfaceModel.PlotColor;
 import net.ericaro.surfaceplotter.surface.SurfaceModel.PlotType;
 
 @SuppressWarnings("serial")
 public class View3d extends Panel implements View {
 
-	private JSurface surface = new JSurface();
+	private DTJSurface surface = new DTJSurface();
 	private DelaunayTriangulation dt;
 
 	public View3d() {
@@ -31,7 +28,7 @@ public class View3d extends Panel implements View {
 	}
 
 	private void initSurface() {
-		DefaultSurfaceModel sm = new DefaultSurfaceModel();
+		DTSurfaceModel sm = new DTSurfaceModel();
 		sm.setPlotFunction2(false);
 
 		sm.setCalcDivisions(70);
@@ -43,17 +40,14 @@ public class View3d extends Panel implements View {
 		sm.setYMin(-3);
 		sm.setYMax(3);
 
-		sm.setBoxed(false);
+		sm.setBoxed(true);
 		sm.setDisplayXY(false);
 		sm.setExpectDelay(false);
 		sm.setAutoScaleZ(true);
-		sm.setDisplayZ(false);
-		sm.setMesh(true);
+		sm.setDisplayZ(true);
+		sm.setMesh(false);
 		sm.setPlotType(PlotType.SURFACE);
 		sm.setFirstFunctionOnly(true);
-		// sm.setPlotType(PlotType.WIREFRAME);
-		// sm.setPlotType(PlotType.CONTOUR);
-		// sm.setPlotType(PlotType.DENSITY);
 
 		sm.setPlotColor(PlotColor.SPECTRUM);
 		// sm.setPlotColor(PlotColor.DUALSHADE);
@@ -65,29 +59,7 @@ public class View3d extends Panel implements View {
 			sm.setYMin((float) dt.getBoundingBox().minY());
 			sm.setYMax((float) dt.getBoundingBox().maxY());
 		}
-
-		sm.setMapper(new Mapper() {
-			public float f1(float x, float y) {
-				if (dt == null || dt.getBoundingBox() == null)
-					return 0;
-				double newX = x;
-				double newY = y;
-
-				float r;
-				Point p = new Point(newX, newY);
-				Triangle t = dt.find(p);
-				if (t.isHalfplane()) {
-					r = 0;
-				} else {
-					r = (float) t.zValue(p);
-				}
-				return r;
-			}
-
-			public float f2(float x, float y) {
-				return 0;
-			}
-		});
+		sm.setDT(dt);
 		sm.plot().execute();
 		surface.setModel(sm);
 	}
