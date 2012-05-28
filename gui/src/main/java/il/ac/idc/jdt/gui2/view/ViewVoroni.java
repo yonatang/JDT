@@ -6,6 +6,7 @@ import il.ac.idc.jdt.gui2.GraphicUtils;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Menu;
 import java.util.Iterator;
 
 @SuppressWarnings("serial")
@@ -70,5 +71,10 @@ public class ViewVoroni extends ViewBase {
 			}
 			g.setColor(temp);
 		}
+	}
+
+	@Override
+	public Menu getViewMenu() {
+		return null;
 	}
 }

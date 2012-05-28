@@ -12,6 +12,7 @@ import il.ac.idc.jdt.gui2.view.ViewVoroni;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Frame;
+import java.awt.Menu;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -29,6 +30,7 @@ public class MainFrame extends Frame {
 	private View3d view3d = new View3d();
 	private ViewTopology viewTopology = new ViewTopology();
 	private ViewVoroni viewVoroni = new ViewVoroni();
+	private Menu viewMenu;
 
 	private void clearView() {
 		remove(view2d);
@@ -53,6 +55,13 @@ public class MainFrame extends Frame {
 	}
 
 	private void setView(View view) {
+		if (viewMenu != null) {
+			menuBar.remove(viewMenu);
+		}
+		viewMenu = view.getViewMenu();
+		if (viewMenu != null) {
+			menuBar.add(viewMenu);
+		}
 		view.setDT(dt);
 		clearView();
 		add((Component) view, BorderLayout.CENTER);

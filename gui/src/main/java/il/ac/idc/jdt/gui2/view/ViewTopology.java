@@ -7,6 +7,7 @@ import il.ac.idc.jdt.gui2.GraphicUtils;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Menu;
 import java.util.Iterator;
 
 @SuppressWarnings("serial")
@@ -103,6 +104,11 @@ public class ViewTopology extends ViewBase {
 				cont = true;
 			}
 		}
+	}
+
+	@Override
+	public Menu getViewMenu() {
+		return null;
 	}
 
 }
